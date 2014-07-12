@@ -20,6 +20,11 @@ describe 'Controller: AboutCtrl', ->
       $scope: scope
     }
 
+  it 'has a basic version before receiving the data from the backend', ->
+    version = scope.version
+
+    expect(version).toEqual {backend: "fetching", app: "fetching"}
+
   it 'queries the backend for the version', ->
     mockBackend.flush()
 
@@ -40,3 +45,12 @@ describe 'Controller: AboutCtrl', ->
     version = scope.version
 
     expect(version.backend).toEqual "0.0.2"
+
+  it 'shows when there is an error', ->
+    mockBackend.resetExpectations()
+    mockBackend.when('GET', '/api/version').respond(502, 'no gateway')
+    mockBackend.flush()
+
+    version = scope.version
+
+    expect(version).toEqual {backend: "error while fetching", app: "error while fetching"}

@@ -9,4 +9,11 @@
 ###
 angular.module('reInspectorWebApp')
   .controller 'AboutCtrl', ($scope, $http) ->
-    $http.get("/api/version").success((data, status, headers) -> $scope.version = data.version)
+    $scope.version = { backend : 'fetching', app : 'fetching' }
+
+    $http.get("/api/version").
+      success((data, status, headers) -> $scope.version = data.version).
+      error((data, status, headers) -> $scope.version = error_version())
+
+    error_version = ->
+      { backend : 'error while fetching', app : 'error while fetching' }
