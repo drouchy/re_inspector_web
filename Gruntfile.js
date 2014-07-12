@@ -48,12 +48,15 @@ module.exports = function (grunt) {
       gruntfile: {
         files: ['Gruntfile.js']
       },
+      html: {
+        files: ['<%= yeoman.app %>/{,*/}*.html'],
+        tasks: ['ngtemplates']
+      },
       livereload: {
         options: {
           livereload: '<%= connect.options.livereload %>'
         },
         files: [
-          '<%= yeoman.app %>/{,*/}*.html',
           '.tmp/styles/{,*/}*.css',
           '.tmp/scripts/{,*/}*.js',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
@@ -217,6 +220,17 @@ module.exports = function (grunt) {
       server: {
         options: {
           debugInfo: true
+        }
+      }
+    },
+
+    ngtemplates: {
+      reInspectorWebApp: {
+        cwd: '<%= yeoman.app %>/views',
+        src:  '{,*/}*.html',
+        dest: '.tmp/scripts/templates.js',
+        options: {
+          prefix: '/views'
         }
       }
     },
@@ -445,6 +459,7 @@ module.exports = function (grunt) {
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
+    'ngtemplates',
     'autoprefixer',
     'concat',
     'ngmin',
