@@ -9,3 +9,4 @@
 ###
 angular.module('reInspectorWebApp')
   .controller 'AboutCtrl', ($scope, $http) ->
+    $http.get("/api/version").success((data, status, headers) -> $scope.version = data.version)
