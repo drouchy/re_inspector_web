@@ -2,14 +2,12 @@
 
 describe 'Controller: AboutCtrl', ->
 
-  # load the controller's module
   beforeEach module 'reInspectorWebApp'
 
   AboutCtrl = {}
   scope = {}
   mockBackend = {}
 
-  # Initialize the controller and a mock scope
   beforeEach inject ($controller, $rootScope, $httpBackend) ->
     mockBackend = $httpBackend
     scope = $rootScope.$new()
