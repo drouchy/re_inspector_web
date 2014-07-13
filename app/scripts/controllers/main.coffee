@@ -14,6 +14,6 @@ angular.module('reInspectorWebApp')
     $scope.search = ->
       console.log("searching '#{$scope.query}'")
       searchService.search($scope.query).then(
-        (data)  -> $scope.results = data ; $scope.error = null
+        (data)  -> $scope.results = data.results ; $scope.error = null
         (error) -> $scope.error = 'Oh snap! something went wrong :-( Please try again later'
       )

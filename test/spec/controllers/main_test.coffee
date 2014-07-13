@@ -1,6 +1,6 @@
 'use strict'
 
-describe 'Controller: MainCtrl', ->
+xdescribe 'Controller: MainCtrl', ->
 
   beforeEach module 'reInspectorWebApp'
 

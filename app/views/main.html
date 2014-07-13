@@ -9,11 +9,26 @@
   </form>
 </div>
 
-<div class="row marketing">
+<div class="row marketing" ng-hide="results">
   <div class="col-md-12">
     <img src="images/yeoman.png" alt="I'm Yeoman" class="center-block" ng-hide="error" id="yeoman">
   </div>
   <div class="col-md-12">
     <img src="images/yeoman-error.png" alt="I'm Yeoman" class="center-block" ng-show="error" id="yeoman-error">
+  </div>
+</div>
+
+<div class="row marketing" ng-show="results">
+  <div class="col-md-12">
+    <ul style="list-style-type: none; padding:0; margin:0;">
+      <li class="animate-repeat" ng-repeat="result in results">
+        <div class="bs-callout {{result.responseType()}}">
+          <h4 ng-click="result.toggle()">{{result.url()}}</h4>
+          <div collapse="!result.isCollapsed">
+            <p>Avoid using <code>&lt;select&gt;</code> elements here as they cannot be fully styled in WebKit browsers.</p>
+          </div
+        </div>
+      </li>
+    </ul>
   </div>
 </div>
