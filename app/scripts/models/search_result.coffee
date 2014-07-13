@@ -1,7 +1,8 @@
 class @SearchResult
-  constructor: (http_data) ->
+  constructor: (http_data = {}) ->
     @isCollapsed = false
     @data = http_data
+    @name = http_data.name
 
   toggle: ->
     @isCollapsed = !@isCollapsed
@@ -13,7 +14,31 @@ class @SearchResult
       when status < 500 then 'bs-callout-warning'
       else 'bs-callout-danger'
 
+  requestBody: ->
+    format(@data.request.body)
+
   responseBody: ->
+    format(@data.response.body)
 
   url: ->
     "#{@data.request.method.toUpperCase()} #{@data.request.path}"
+
+  duration: ->
+    moment.duration(@data.time_to_execute).asMilliseconds()
+
+  executedAt: ->
+    @__executionDate__().format('dddd, MMMM Do YYYY, hh:mm:ss')
+
+  timeAgo: ->
+    debugger
+    @__executionDate__().fromNow()
+
+  __executionDate__: ->
+    moment @data.requested_at
+
+  format = (json) ->
+    return null unless json
+    try
+      JSON.stringify JSON.parse(json), null, 2
+    catch SyntaxError
+      json

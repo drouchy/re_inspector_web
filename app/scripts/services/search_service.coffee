@@ -18,6 +18,7 @@ angular.module('reInspectorWebApp').factory 'searchService', ($http, $q) ->
         {
           "requested_at": "2014-01-03T14:29:00Z",
           "time_to_execute": 3430,
+          "name": "post article",
           "service": {
             "name": "service 2",
             "version": "2.1.0",
@@ -42,6 +43,7 @@ angular.module('reInspectorWebApp').factory 'searchService', ($http, $q) ->
         },
         {
           "requested_at": "2014-01-03T14:30:00Z",
+          "name": "comment article",
           "time_to_execute": 1230,
           "service": {
             "name": "service 1",
@@ -58,11 +60,36 @@ angular.module('reInspectorWebApp').factory 'searchService', ($http, $q) ->
              "body": "{ \"comment\" : { \"comment\": \"this is a comment\", \"article_id\": \"1234567890\" } }"
           },
           "response": {
-             "status": 200,
+             "status": 404,
              "headers": {
                "content-type": "application/json"
              },
              "body": "{ \"comment\": { \"id\": \"24C43\", \"status\": \"submitted\" } }"
+          }
+        },
+        {
+          "requested_at": "2014-01-03T14:32:00Z",
+          "name": "delete article",
+          "time_to_execute": 1230,
+          "service": {
+            "name": "service 3",
+            "version": "0.0.1",
+            "environment": "sandbox"
+          },
+          "request": {
+             "method": "delete",
+             "path": "/articles/1234567890",
+             "headers": {
+               "Authorization": "Bearer 1234567890",
+               "Content-type": "application/json"
+             }
+           }
+          "response": {
+             "status": 500,
+             "headers": {
+               "content-type": "application/json"
+             },
+             "body": "something went wrong"
           }
         }
       ]

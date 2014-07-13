@@ -70,6 +70,14 @@ describe 'Model: SearchResult', ->
 
       expect(subject.responseType()).toEqual 'bs-callout-danger'
 
+  describe '#name', ->
+    it 'has the name of the data', ->
+      data.name = 'the name'
+
+      subject = new SearchResult(data)
+
+      expect(subject.name).toEqual 'the name'
+
   describe '#toggle', ->
     it 'collapses the result when expanded', ->
       subject = new SearchResult()
@@ -86,3 +94,47 @@ describe 'Model: SearchResult', ->
       subject.toggle()
 
       expect(subject.isCollapsed).toBe false
+
+  describe 'responseBody', ->
+    it 'prettyfies the json', ->
+      data.response.body = '{"a":1,"b":[1,2,3]}'
+
+      subject = new SearchResult(data)
+
+      expect(subject.responseBody()).toEqual '{\n  "a": 1,\n  "b": [\n    1,\n    2,\n    3\n  ]\n}'
+
+    it 'does not crash with invalid json', ->
+      data.response.body = 'invalid'
+
+      subject = new SearchResult(data)
+
+      expect(subject.responseBody()).toEqual 'invalid'
+
+    it 'does not crash with no content', ->
+      data.response.body = null
+
+      subject = new SearchResult(data)
+
+      expect(subject.responseBody()).toEqual null
+
+  describe 'requestBody', ->
+    it 'prettyfies the json', ->
+      data.request.body = '{"a":1,"b":[1,2,3]}'
+
+      subject = new SearchResult(data)
+
+      expect(subject.requestBody()).toEqual '{\n  "a": 1,\n  "b": [\n    1,\n    2,\n    3\n  ]\n}'
+
+    it 'does not crash with invalid json', ->
+      data.request.body = 'invalid'
+
+      subject = new SearchResult(data)
+
+      expect(subject.requestBody()).toEqual 'invalid'
+
+    it 'does not crash with no content', ->
+      data.request.body = null
+
+      subject = new SearchResult(data)
+
+      expect(subject.requestBody()).toEqual null

@@ -24,6 +24,8 @@ module.exports = (config) ->
       'bower_components/angular-touch/angular-touch.js'
       'bower_components/underscore/underscore.js'
       'bower_components/angular-bootstrap/ui-bootstrap.js'
+      'bower_components/highlightjs/highlight.pack.js'
+      'bower_components/angular-highlightjs/angular-highlightjs.js'
       'app/scripts/**/*.coffee'
       '.tmp/scripts/templates.js'
       'test/support/**/*.coffee'
@@ -50,8 +52,8 @@ module.exports = (config) ->
     # - PhantomJS
     # - IE (only Windows)
     browsers: [
-      # 'PhantomJS',
-      'Chrome'
+      'PhantomJS'
+      # 'Chrome'
     ]
 
     # Which plugins to enable
