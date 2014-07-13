@@ -18,7 +18,7 @@ describe 'Service: search', ->
 
   describe 'search', ->
     beforeEach ->
-      httpBackend.when('GET', '/api/search?q=query').respond(200, {foo: 'bar'})
+      httpBackend.when('GET', '/api/search?q=query').respond(200, {results: [{foo: 'bar'}]})
       httpBackend.when('GET', '/api/search?q=not_found').respond(404, {error: '1'})
 
     it 'executes the http request', ->
@@ -40,8 +40,19 @@ describe 'Service: search', ->
       )
       httpBackend.flush()
 
-      expect(success).toEqual {foo: 'bar'}
+      expect(success).not.toBe null
       expect(failure).toBe null
+
+    it 'transforms the result to search result', ->
+      success = null
+      failure = null
+
+      service.search('query').then(
+        (data)  -> success = data
+      )
+      httpBackend.flush()
+
+      expect(success.results[0].isCollapsed).toBe false
 
     it 'rejects the promise when the query is executed', ->
       success = null
