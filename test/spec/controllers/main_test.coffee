@@ -6,15 +6,22 @@ describe 'Controller: MainCtrl', ->
 
   MainCtrl = {}
   scope = {}
-  httpBackend = {}
+  deferred = {}
+  promise = {}
+  service = {}
 
-  beforeEach inject ($controller, $rootScope, $httpBackend) ->
+  beforeEach inject ($controller, $rootScope, searchService, $q) ->
     scope = $rootScope.$new()
-    httpBackend = $httpBackend
 
     MainCtrl = $controller 'MainCtrl', {
       $scope: scope
     }
+
+    deferred = $q.defer()
+    promise = deferred.promise
+
+    service = searchService
+    spyOn(searchService, 'search').andReturn(promise)
 
   it 'has an undefined result array when loading', ->
     expect(scope.results).toBe undefined
@@ -23,42 +30,35 @@ describe 'Controller: MainCtrl', ->
     expect(scope.query).toEqual ''
 
   describe 'search', ->
-    it 'assigns the result of the search', ->
-      results = ['REF1', 'REF2']
-      httpBackend.expectGET('/api/search?q=REF1').respond(results)
+    it 'searches the query', ->
       scope.query = 'REF1'
 
       scope.search()
-      httpBackend.flush()
 
-      httpBackend.verifyNoOutstandingExpectation()
-      httpBackend.verifyNoOutstandingRequest()
+      expect(service.search).toHaveBeenCalledWith('REF1')
 
     it 'assigns the result of the search', ->
       results = ['REF1', 'REF2']
-      httpBackend.when('GET', '/api/search?q=REF1').respond(results)
-      scope.query = 'REF1'
 
       scope.search()
-      httpBackend.flush()
+      deferred.resolve(results)
+      scope.$apply()
 
-      expect(scope.results).toEqual results
+      expect(scope.results).toBe results
 
     it 'resets the error when the connection is back', ->
       scope.error = 'an error message'
-      httpBackend.when('GET', '/api/search?q=REF1').respond([])
-      scope.query = 'REF1'
 
       scope.search()
-      httpBackend.flush()
+      deferred.resolve('')
+      scope.$apply()
 
       expect(scope.error).toBe null
 
-    it 'sets an error message when the backend is unreachable', ->
-      httpBackend.when('GET', '/api/search?q=REF1').respond(404, 'not found')
-      scope.query = 'REF1'
-
+    it 'sets an error message when the search fails', ->
       scope.search()
-      httpBackend.flush()
+
+      deferred.reject('error')
+      scope.$apply()
 
       expect(scope.error).toEqual 'Oh snap! something went wrong :-( Please try again later'

@@ -8,11 +8,12 @@
  # Controller of the reInspectorWebApp
 ###
 angular.module('reInspectorWebApp')
-  .controller 'MainCtrl', ($scope, $http) ->
+  .controller 'MainCtrl', ($scope, $http, searchService) ->
     $scope.query = ''
 
     $scope.search = ->
-      console.log("searching #{$scope.query}")
-      $http.get('/api/search', { params: { q: $scope.query }}).
-        success((data, status, headers) -> $scope.results = data; $scope.error = null).
-        error((data, status, headers) -> $scope.error = 'Oh snap! something went wrong :-( Please try again later')
+      console.log("searching '#{$scope.query}'")
+      searchService.search($scope.query).then(
+        (data)  -> $scope.results = data ; $scope.error = null
+        (error) -> $scope.error = 'Oh snap! something went wrong :-( Please try again later'
+      )
