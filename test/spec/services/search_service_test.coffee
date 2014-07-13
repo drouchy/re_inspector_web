@@ -1,6 +1,6 @@
 'use strict'
 
-xdescribe 'Service: search', ->
+describe 'Service: search', ->
 
   beforeEach module 'reInspectorWebApp'
 

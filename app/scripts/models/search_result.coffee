@@ -30,7 +30,6 @@ class @SearchResult
     @__executionDate__().format('dddd, MMMM Do YYYY, hh:mm:ss')
 
   timeAgo: ->
-    debugger
     @__executionDate__().fromNow()
 
   __executionDate__: ->

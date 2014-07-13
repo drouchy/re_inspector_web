@@ -6,10 +6,9 @@ angular.module('reInspectorWebApp').factory 'searchService', ($http, $q) ->
       deferred = $q.defer()
 
       console.log 'mocked response';
-      deferred.resolve({results: _.map(@mockResponse(), (d) -> new SearchResult(d))})#
-      # $http.get('/api/search', { params: { q: query } } ).
-      #   success((data, status, headers) -> deferred.resolve(data)).
-      #   error((data, status, headers) ->   deferred.reject(data))
+      $http.get('/api/search', { params: { q: query } } ).
+        success((data, status, headers) -> deferred.resolve(data)).
+        error((data, status, headers) ->   deferred.reject(data))
 
       deferred.promise
 

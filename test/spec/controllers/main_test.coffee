@@ -1,6 +1,6 @@
 'use strict'
 
-xdescribe 'Controller: MainCtrl', ->
+describe 'Controller: MainCtrl', ->
 
   beforeEach module 'reInspectorWebApp'
 
@@ -41,7 +41,7 @@ xdescribe 'Controller: MainCtrl', ->
       results = ['REF1', 'REF2']
 
       scope.search()
-      deferred.resolve(results)
+      deferred.resolve({results: results})
       scope.$apply()
 
       expect(scope.results).toBe results
