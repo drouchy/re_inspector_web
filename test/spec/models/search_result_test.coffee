@@ -32,7 +32,7 @@ describe 'Model: SearchResult', ->
 
       expect(subject.url()).toEqual 'GET /uri_1'
 
-    it 'upcase the method', ->
+    it 'upcases the method', ->
       data.request.method = 'get'
 
       subject = new SearchResult(data)
@@ -72,7 +72,7 @@ describe 'Model: SearchResult', ->
 
   describe '#name', ->
     it 'has the name of the data', ->
-      data.name = 'the name'
+      data.request_name = 'the name'
 
       subject = new SearchResult(data)
 

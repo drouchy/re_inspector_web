@@ -2,7 +2,7 @@ class @SearchResult
   constructor: (http_data = {}) ->
     @isCollapsed = false
     @data = http_data
-    @name = http_data.name
+    @name = http_data.request_name
 
   toggle: ->
     @isCollapsed = !@isCollapsed

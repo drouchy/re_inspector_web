@@ -14,5 +14,6 @@ angular.module('reInspectorWebApp').factory 'searchService', ($http, $q) ->
 
     transformData: (data) ->
       {
-        results: _.map data.results, (entry) -> new SearchResult(entry)
+        results: _.map(data.results, (entry) -> new SearchResult(entry))
       }
+  }
