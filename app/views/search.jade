@@ -5,6 +5,14 @@ include ./partials/search
   .col-md-12
     img#yeoman-error.center-block(src='images/yeoman-error.png', alt='I\'m Yeoman', ng-show='error')
 
+div(ng-hide='events.length' style="margin-top: 30px; text-align: center;")
+  .row.marketing
+    .col-md-2.col-md-offset-5
+      i.fa.fa-question-circle.fa-5
+  .row.marketing
+    .col-md-2.col-md-offset-5
+      span Sorry no result found
+
 .row.marketing(ng-show='results')
   .col-md-12
     ul(style='list-style-type: none; padding: 0; margin: 0;')
