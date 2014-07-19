@@ -1,0 +1,34 @@
+.alert.alert-danger(role='alert', ng-show='error') {{error}}
+
+.row.marketing
+  form.form-inline(role='form')
+    .form-group.col-md-10
+      input.form-control(type='text', style='width: 100%;', placeholder='Enter query', ng-model='query')
+    button.btn.btn-primary(type='submit', ng-click='search()') Search
+
+.row.marketing(ng-hide='results')
+  .col-md-12
+    img#yeoman.center-block(src='images/yeoman.png', alt='I\'m Yeoman', ng-hide='error')
+  .col-md-12
+    img#yeoman-error.center-block(src='images/yeoman-error.png', alt='I\'m Yeoman', ng-show='error')
+    .row.marketing(ng-show='results')
+      .col-md-12
+        ul(style='list-style-type: none; padding: 0; margin: 0;')
+          li.animate-repeat(ng-repeat='result in results')
+            .bs-callout.{{result.responseType()}}
+              h4(ng-click='result.toggle()') {{result.name}}
+              span.execution  - {{result.timeAgo()}}
+              div(collapse='!result.isCollapsed', style='clear: both;')
+                dl.request
+                  dt url:
+                  dd {{result.url()}}
+                  dt status:
+                  dd {{result.data.response.status}}
+                  dt requested at:
+                  dd {{result.executedAt()}}
+                  dt duration:
+                  dd {{result.duration()}}ms
+                h5 request
+                div(hljs='hljs', source='result.requestBody()', ng-show='result.requestBody()')
+                h5 response
+                div(hljs='hljs', source='result.responseBody()', ng-show='result.responseBody()')

@@ -52,6 +52,10 @@ module.exports = function (grunt) {
         files: ['<%= yeoman.app %>/{,*/}*.html'],
         tasks: ['ngtemplates']
       },
+      jade: {
+        files: '<%= yeoman.app %>/views/**/*.jade',
+        tasks: ['jade', 'ngtemplates']
+      },
       livereload: {
         options: {
           livereload: '<%= connect.options.livereload %>'
@@ -224,9 +228,26 @@ module.exports = function (grunt) {
       }
     },
 
+    jade: {
+      html: {
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.app %>/views',
+          src: ['{,*/}*.jade', '!**/_*'],
+          dest: '.tmp/views',
+          ext: '.html'
+        }],
+        options: {
+          client: false,
+          pretty: true,
+          basedir: '<%= yeoman.app %>/jade'
+        }
+      }
+    },
+
     ngtemplates: {
       reInspectorWebApp: {
-        cwd: '<%= yeoman.app %>/views',
+        cwd: '.tmp/views',
         src:  '{,*/}*.html',
         dest: '.tmp/scripts/templates.js',
         options: {
@@ -401,6 +422,7 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
+        'jade',
         'ngtemplates',
         'coffee:dist',
         'compass:server'
@@ -410,6 +432,7 @@ module.exports = function (grunt) {
         'compass'
       ],
       dist: [
+        'jade',
         'ngtemplates',
         'coffee',
         'compass:dist',
@@ -460,6 +483,7 @@ module.exports = function (grunt) {
     'clean:dist',
     'wiredep',
     'useminPrepare',
+    'jade',
     'ngtemplates',
     'concurrent:dist',
     'autoprefixer',
