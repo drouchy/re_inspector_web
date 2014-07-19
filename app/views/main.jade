@@ -1,12 +1,5 @@
-.alert.alert-danger(role='alert', ng-show='error') {{error}}
-.row.marketing
-    form.form-inline(role='form')
-      .form-group.col-md-10
-        input.form-control(type='text', style='width: 100%;', placeholder='Enter query', ng-model='query')
-      button.btn.btn-primary(type='submit', ng-click='search()') Search
+include ./partials/search
 
 .row.marketing
   .col-md-12
-    img#yeoman.center-block(src='images/yeoman.png', alt='I\'m Yeoman', ng-hide='error')
-  .col-md-12
-    img#yeoman-error.center-block(src='images/yeoman-error.png', alt='I\'m Yeoman', ng-show='error')
+    img#yeoman.center-block(src='images/yeoman.png', alt='I\'m Yeoman')
