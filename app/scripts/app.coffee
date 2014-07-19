@@ -30,5 +30,8 @@ angular
       .when '/about',
         templateUrl: '/views/about.html'
         controller: 'AboutCtrl'
+      .when '/not_found',
+        templateUrl: '/views/not_found.html'
+        controller: 'NotFoundCtrl'
       .otherwise
-        redirectTo: '/'
+        redirectTo: '/not_found'
