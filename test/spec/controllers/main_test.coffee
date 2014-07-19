@@ -6,59 +6,29 @@ describe 'Controller: MainCtrl', ->
 
   MainCtrl = {}
   scope = {}
-  deferred = {}
-  promise = {}
-  service = {}
+  location = {}
 
-  beforeEach inject ($controller, $rootScope, searchService, $q) ->
+  beforeEach inject ($controller, $rootScope, $location) ->
     scope = $rootScope.$new()
+    location = $location
 
-    MainCtrl = $controller 'MainCtrl', {
-      $scope: scope
-    }
-
-    deferred = $q.defer()
-    promise = deferred.promise
-
-    service = searchService
-    spyOn(searchService, 'search').andReturn(promise)
-
-  it 'has an undefined result array when loading', ->
-    expect(scope.results).toBe undefined
+    MainCtrl = $controller 'MainCtrl', {$scope: scope }
 
   it 'has an empty query', ->
     expect(scope.query).toEqual ''
 
   describe 'search', ->
-    it 'searches the query', ->
-      scope.query = 'REF1'
+    it 'redirects to the search controller', ->
+      scope.query = 'to_search'
 
       scope.search()
 
-      expect(service.search).toHaveBeenCalledWith('REF1')
+      expect(location.path()).toEqual "/search"
 
-    it 'assigns the result of the search', ->
-      results = ['REF1', 'REF2']
-
-      scope.search()
-      deferred.resolve({results: results})
-      scope.$apply()
-
-      expect(scope.results).toBe results
-
-    it 'resets the error when the connection is back', ->
-      scope.error = 'an error message'
+    it 'applies the search query in the parameters', ->
+      scope.query = 'to_search'
 
       scope.search()
-      deferred.resolve('')
-      scope.$apply()
 
-      expect(scope.error).toBe null
+      expect(location.$$url).toEqual "/search?q=to_search"
 
-    it 'sets an error message when the search fails', ->
-      scope.search()
-
-      deferred.reject('error')
-      scope.$apply()
-
-      expect(scope.error).toEqual 'Oh snap! something went wrong :-( Please try again later'
