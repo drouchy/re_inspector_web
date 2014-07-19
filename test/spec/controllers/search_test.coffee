@@ -29,6 +29,8 @@ describe 'Controller: SearchCtrl', ->
   it 'has a query set to the q params', ->
     expect(scope.query).toEqual 'to_search'
 
+  it 'does not have no results', ->
+    expect(scope.noResults).toBe false
 
   describe 'search', ->
     it 'redirects to the search controller', ->
@@ -57,19 +59,42 @@ describe 'Controller: SearchCtrl', ->
 
       expect(scope.results).toBe results
 
+    it 'does not have no results', ->
+      deferred.resolve(results: ['REF1', 'REF2'])
+      scope.$apply()
+
+      expect(scope.noResults).toBe false
+
+    it 'has no results with the service returns no results', ->
+      results = []
+
+      deferred.resolve({results: results})
+      scope.$apply()
+
+      expect(scope.noResults).toBe true
+
     it 'resets the error when the connection is back', ->
       scope.error = 'an error message'
 
-      deferred.resolve('')
+      deferred.resolve(results: [])
       scope.$apply()
 
       expect(scope.error).toBe null
 
-    it 'sets an error message when the search fails', ->
-      deferred.reject('error')
-      scope.$apply()
+    describe 'with error', ->
+      it 'sets an error message when the search fails', ->
+        deferred.reject('error')
+        scope.$apply()
 
-      expect(scope.error).toEqual 'Oh snap! something went wrong :-( Please try again later'
+        expect(scope.error).toEqual 'Oh snap! something went wrong :-( Please try again later'
+
+      it 'sets an error message when the search fails', ->
+        scope.noResults = true
+
+        deferred.reject('error')
+        scope.$apply()
+
+        expect(scope.noResults).toBe false
 
   buildPromise = (q, searchService) ->
     deferred = q.defer()
