@@ -35,3 +35,5 @@ angular
         controller: 'NotFoundCtrl'
       .otherwise
         redirectTo: '/not_found'
+  .run ($http, $cookies) ->
+    $http.defaults.headers.common.Authorization = "token #{$cookies.authentication_token}"
