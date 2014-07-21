@@ -22,9 +22,7 @@ angular.module('reInspectorWebApp')
         (data)  ->
           $scope.results = data.results
           $scope.noResults = data.results.length == 0
-          $scope.error = null
         (error) ->
-          $scope.error = 'Oh snap! something went wrong :-( Please try again later'
           $scope.noResults = false
       )
 

@@ -55,6 +55,10 @@
     </div>
 
     <div class="container">
+      <div class="error" ng-controller="ErrorCtrl">
+        <div role="alert" ng-show="error" class="alert alert-danger">{{error}}</div>
+      </div>
+
       <div ng-view="" />
 
       <div class="footer">
@@ -119,6 +123,7 @@
         <script src="scripts/models/search_result.js"></script>
         <script src="scripts/services/search_service.js"></script>
         <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/error.js"></script>
         <script src="scripts/controllers/login.js"></script>
         <script src="scripts/controllers/search.js"></script>
         <script src="scripts/controllers/about.js"></script>

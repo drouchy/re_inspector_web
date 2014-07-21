@@ -73,22 +73,8 @@ describe 'Controller: SearchCtrl', ->
 
       expect(scope.noResults).toBe true
 
-    it 'resets the error when the connection is back', ->
-      scope.error = 'an error message'
-
-      deferred.resolve(results: [])
-      scope.$apply()
-
-      expect(scope.error).toBe null
-
     describe 'with error', ->
-      it 'sets an error message when the search fails', ->
-        deferred.reject('error')
-        scope.$apply()
-
-        expect(scope.error).toEqual 'Oh snap! something went wrong :-( Please try again later'
-
-      it 'sets an error message when the search fails', ->
+      it 'marks as there is no results', ->
         scope.noResults = true
 
         deferred.reject('error')
