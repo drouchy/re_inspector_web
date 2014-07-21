@@ -47,6 +47,13 @@ describe 'Controller: SearchCtrl', ->
 
       expect(location.$$url).toEqual "/search?q=foo_bar"
 
+    it 'launches the search', ->
+      scope.query = 'foo_bar'
+
+      scope.search()
+
+      expect(service.search).toHaveBeenCalledWith('to_search')
+
   describe 'search execution', ->
     it 'searches the query', ->
       expect(service.search).toHaveBeenCalledWith('to_search')

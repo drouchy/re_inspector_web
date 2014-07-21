@@ -15,6 +15,7 @@ angular.module('reInspectorWebApp')
     $scope.search = ->
       $location.search("q", $scope.query)
       $location.path("/search")
+      $scope.executeSearch()
 
     $scope.executeSearch = ->
       console.log "searching '#{$scope.query}'"
