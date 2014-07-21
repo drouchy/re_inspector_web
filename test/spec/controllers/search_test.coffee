@@ -58,6 +58,11 @@ describe 'Controller: SearchCtrl', ->
     it 'searches the query', ->
       expect(service.search).toHaveBeenCalledWith('to_search')
 
+    it 'start searching', ->
+      scope.$apply()
+
+      expect(scope.searching).toBe true
+
     it 'assigns the result of the search', ->
       results = ['REF1', 'REF2']
 
@@ -65,6 +70,14 @@ describe 'Controller: SearchCtrl', ->
       scope.$apply()
 
       expect(scope.results).toBe results
+
+    it 'stops searching', ->
+      expect(scope.searching).toBe true
+
+      deferred.resolve({results: []})
+      scope.$apply()
+
+      expect(scope.searching).toBe false
 
     it 'does not have no results', ->
       deferred.resolve(results: ['REF1', 'REF2'])
@@ -88,6 +101,14 @@ describe 'Controller: SearchCtrl', ->
         scope.$apply()
 
         expect(scope.noResults).toBe false
+
+      it 'stops searching', ->
+        expect(scope.searching).toBe true
+
+        deferred.reject('error')
+        scope.$apply()
+
+        expect(scope.searching).toBe false
 
   buildPromise = (q, searchService) ->
     deferred = q.defer()

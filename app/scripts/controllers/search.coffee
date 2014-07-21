@@ -19,12 +19,15 @@ angular.module('reInspectorWebApp')
 
     $scope.executeSearch = ->
       console.log "searching '#{$scope.query}'"
+      $scope.searching = true
       searchService.search($scope.query).then(
         (data)  ->
           $scope.results = data.results
           $scope.noResults = data.results.length == 0
+          $scope.searching = false
         (error) ->
           $scope.noResults = false
+          $scope.searching = false
       )
 
     $scope.executeSearch()
