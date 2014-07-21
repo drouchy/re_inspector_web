@@ -16,7 +16,7 @@ div(ng-show='noResults' style='margin-top: 30px; text-align: center;')
   .col-md-12
     ul(style='list-style-type: none; padding: 0; margin: 0;')
       li.animate-repeat(ng-repeat='result in results')
-        .bs-callout.{{result.responseType()}}
+        .bs-callout(ng-class='result.responseType()')
           h4(ng-click='result.toggle()') {{result.name}}
           span.execution  - {{result.timeAgo()}}
           div(collapse='!result.isCollapsed', style='clear: both;')
