@@ -15,7 +15,7 @@ div(ng-show='noResults' style='margin-top: 30px; text-align: center;')
 .row.marketing(ng-show='results')
   .col-md-12
     ul(style='list-style-type: none; padding: 0; margin: 0;')
-      li.animate-repeat(ng-repeat='result in results')
+      li.result-repeat.animate(ng-repeat='result in results')
         .bs-callout(ng-class='result.responseType()')
           h4(ng-click='result.toggle()') {{result.name}}
           span.execution  - {{result.timeAgo()}}

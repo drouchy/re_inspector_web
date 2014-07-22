@@ -11,6 +11,7 @@ angular.module('reInspectorWebApp')
   .controller 'SearchCtrl', ($scope, $http, $location, $routeParams, searchService) ->
     $scope.query = $routeParams.q
     $scope.noResults = false
+    $scope.results = []
 
     $scope.search = ->
       $location.search("q", $scope.query)
@@ -20,6 +21,8 @@ angular.module('reInspectorWebApp')
     $scope.executeSearch = ->
       console.log "searching '#{$scope.query}'"
       $scope.searching = true
+      $scope.__discard_results()
+
       searchService.search($scope.query).then(
         (data)  ->
           $scope.results = data.results
@@ -29,5 +32,9 @@ angular.module('reInspectorWebApp')
           $scope.noResults = false
           $scope.searching = false
       )
+
+    $scope.__discard_results = ->
+      while($scope.results.length > 0)
+        $scope.results.shift()
 
     $scope.executeSearch()

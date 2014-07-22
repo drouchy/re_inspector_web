@@ -23,14 +23,14 @@ describe 'Controller: SearchCtrl', ->
 
     MainCtrl = $controller 'SearchCtrl', {$scope: scope}
 
-  it 'has an undefined result array when loading', ->
-    expect(scope.results).toBe undefined
-
   it 'has a query set to the q params', ->
     expect(scope.query).toEqual 'to_search'
 
   it 'does not have no results', ->
     expect(scope.noResults).toBe false
+
+  it 'has an empty result list', ->
+    expect(scope.results).toEqual []
 
   describe 'search', ->
     it 'redirects to the search controller', ->
