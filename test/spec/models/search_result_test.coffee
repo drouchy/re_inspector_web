@@ -5,6 +5,7 @@ describe 'Model: SearchResult', ->
   data = {}
   beforeEach ->
     data = {
+      duration: 300,
       request: {
         method: 'GET'
         path: '/uri_1'
@@ -138,3 +139,21 @@ describe 'Model: SearchResult', ->
       subject = new SearchResult(data)
 
       expect(subject.requestBody()).toEqual null
+
+  describe 'duration', ->
+    it 'formats the milliseconds', ->
+      subject = new SearchResult(data)
+
+      expect(subject.duration()).toEqual "300ms"
+
+    it 'formats in second if the duration is more than 1100ms', ->
+      data.duration = 1234
+      subject = new SearchResult(data)
+
+      expect(subject.duration()).toEqual "1.2s"
+
+    it 'formats the duration even if passed as a string', ->
+      data.duration = '1234'
+      subject = new SearchResult(data)
+
+      expect(subject.duration()).toEqual "1.2s"

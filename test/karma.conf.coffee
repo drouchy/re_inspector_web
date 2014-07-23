@@ -26,6 +26,8 @@ module.exports = (config) ->
       'bower_components/angular-bootstrap/ui-bootstrap.js'
       'bower_components/highlightjs/highlight.pack.js'
       'bower_components/angular-highlightjs/angular-highlightjs.js'
+      'bower_components/angular-highlightjs/angular-highlightjs.js'
+      'bower_components/momentjs/moment.js'
       'app/scripts/**/*.coffee'
       '.tmp/scripts/templates.js'
       'test/support/**/*.coffee'

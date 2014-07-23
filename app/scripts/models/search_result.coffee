@@ -24,7 +24,11 @@ class @SearchResult
     "#{@data.request.method.toUpperCase()} #{@data.request.path}"
 
   duration: ->
-    moment.duration(@data.time_to_execute).asMilliseconds()
+    duration = moment.duration(parseInt @data.duration)
+    if duration.asMilliseconds() < 1100
+      "#{duration.asMilliseconds()}ms"
+    else
+      "#{duration.asSeconds().toFixed(1)}s"
 
   executedAt: ->
     @__executionDate__().format('dddd, MMMM Do YYYY, hh:mm:ss')
