@@ -30,11 +30,20 @@ class @SearchResult
     else
       "#{duration.asSeconds().toFixed(1)}s"
 
+  requestHeaders: ->
+    @data.request.headers
+
+  responseHeaders: ->
+    @data.response.headers
+
   executedAt: ->
     @__executionDate__().format('dddd, MMMM Do YYYY, hh:mm:ss')
 
   timeAgo: ->
     @__executionDate__().fromNow()
+
+  service: ->
+    "#{@data.service.name} - #{@data.service.version}"
 
   __executionDate__: ->
     moment @data.requested_at

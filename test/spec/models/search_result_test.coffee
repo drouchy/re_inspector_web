@@ -3,6 +3,8 @@
 describe 'Model: SearchResult', ->
 
   data = {}
+  headers = ""
+
   beforeEach ->
     data = {
       duration: 300,
@@ -13,8 +15,15 @@ describe 'Model: SearchResult', ->
       response: {
         body: '{"a":1, "foo":"bar"}'
         status: 200
+      },
+      service: {
+        name: "service 1",
+        version: "12.4"
       }
     }
+
+    headers = {"HTTP_ACCEPT":"application/json","HTTP_AUTHORIZATION":"Bearer 12345","HTTP_HOST":"example.com","HTTP_USER_AGENT":"faraday","HTTP_VERSION":"HTTP/1.0","HTTP_X_FORWARDED_FOR":"::ffff:79.125.112.11","HTTP_X_FORWARDED_PROTO":"https","HTTP_X_NEWRELIC_ID":"VwIOV1dUGwAJV1FXBgQ=","HTTP_X_NEWRELIC_TRANSACTION":"PxQVTQACVEBVOQ==","HTTP_X_REAL_IP":"::ffff:79.125.112.11"}
+
 
   describe '#constructor', ->
     it 'is not collapsed', ->
@@ -148,12 +157,36 @@ describe 'Model: SearchResult', ->
 
     it 'formats in second if the duration is more than 1100ms', ->
       data.duration = 1234
+
       subject = new SearchResult(data)
 
       expect(subject.duration()).toEqual "1.2s"
 
     it 'formats the duration even if passed as a string', ->
       data.duration = '1234'
+
       subject = new SearchResult(data)
 
       expect(subject.duration()).toEqual "1.2s"
+
+  describe 'service', ->
+    it 'concatenates the service name & version', ->
+      subject = new SearchResult(data)
+
+      expect(subject.service()).toEqual "service 1 - 12.4"
+
+  describe 'requestHeaders', ->
+    it 'returns the headers of the request', ->
+      data.request.headers = headers
+
+      subject = new SearchResult(data)
+
+      expect(subject.requestHeaders()).toEqual headers
+
+  describe 'responseHeaders', ->
+    it 'returns the headers of the response', ->
+      data.response.headers = headers
+
+      subject = new SearchResult(data)
+
+      expect(subject.responseHeaders()).toEqual headers

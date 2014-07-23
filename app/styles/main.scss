@@ -1,7 +1,17 @@
+
 $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 // bower:scss
 @import "bootstrap-sass-official/assets/stylesheets/bootstrap.scss";
 // endbower
+
+pre {
+  font-size: 11px;
+  // background-color: transparent;
+}
+
+.hljs {
+  background: transparent;
+}
 
 .container {
   margin-top: 60px;
@@ -77,25 +87,45 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
   color: #5cb85c;
 }
 
-dl.request {
-  dt {
-    float: left;
-    clear: left;
-    font-weight: bold;
-    margin: 0;
-  }
-
-  dd {
-    padding-left: 100px;
-  }
-}
-
 .fa-5 {
   font-size: 7em;
 }
 
 .fa-7 {
   font-size: 13em;
+}
+
+.tab-content {
+  .tab-pane {
+    padding: 10px;
+  }
+}
+
+dl.information {
+  background: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 12px ;
+
+  dt {
+    float: left;
+    clear: left;
+    font-weight: bold;
+    margin: 0;
+  }
+}
+
+.regular-information {
+  dd {
+    padding-left: 100px;
+  }
+}
+
+.large-information {
+  dd {
+    padding-left: 250px;
+  }
 }
 
 .animate.ng-enter,
@@ -129,4 +159,18 @@ dl.request {
   transform: scaleY(1);
   height: 30px;
   opacity: 1;
+}
+
+.bs-callout {
+  h4 {
+    cursor: pointer;
+  }
+}
+
+ul.nav {
+  li {
+    a {
+      cursor: pointer;
+    }
+  }
 }
