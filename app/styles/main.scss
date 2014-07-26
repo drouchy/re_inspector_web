@@ -174,3 +174,14 @@ ul.nav {
     }
   }
 }
+
+li.pagination {
+  text-align: center ;
+  margin-top: 0px;
+  margin-bottom: 30px;
+  width: 100%;
+
+  a {
+    cursor: pointer;
+  }
+}

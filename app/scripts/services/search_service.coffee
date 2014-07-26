@@ -1,11 +1,11 @@
 
 angular.module('reInspectorWebApp').factory 'searchService', ($http, $q) ->
   {
-    search: (query) ->
-      console.log "launch search for #{query}"
+    search: (path) ->
+      console.log "loading path #{path}"
       deferred = $q.defer()
 
-      $http.get('/api/search', { params: { q: query } } ).
+      $http.get(path).
         success((data, status, headers) => deferred.resolve(@transformData(data))).
         error((data, status, headers)   => deferred.reject(data))
 
@@ -13,6 +13,7 @@ angular.module('reInspectorWebApp').factory 'searchService', ($http, $q) ->
 
     transformData: (data) ->
       {
-        results: _.map(data.results, (entry) -> new SearchResult(entry))
+        results: _.map(data.results, (entry) -> new SearchResult(entry)),
+        pagination: data.pagination
       }
   }

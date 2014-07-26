@@ -24,7 +24,7 @@ describe 'Service: search', ->
     it 'executes the http request', ->
       httpBackend.expectGET('/api/search?q=query').respond({foo:'bar'})
 
-      service.search 'query'
+      service.search '/api/search?q=query'
       httpBackend.flush()
 
       httpBackend.verifyNoOutstandingExpectation()
@@ -34,7 +34,7 @@ describe 'Service: search', ->
       success = null
       failure = null
 
-      service.search('query').then(
+      service.search('/api/search?q=query').then(
         (data)  -> success = data
         (error) -> failure = error
       )
@@ -47,7 +47,7 @@ describe 'Service: search', ->
       success = null
       failure = null
 
-      service.search('query').then(
+      service.search('/api/search?q=query').then(
         (data)  -> success = data
       )
       httpBackend.flush()
@@ -58,7 +58,7 @@ describe 'Service: search', ->
       success = null
       failure = null
 
-      service.search('not_found').then(
+      service.search('/api/search?q=not_found').then(
         (data)  -> success = data
         (error) -> failure = error
       )

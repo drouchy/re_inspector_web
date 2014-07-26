@@ -52,11 +52,11 @@ describe 'Controller: SearchCtrl', ->
 
       scope.search()
 
-      expect(service.search).toHaveBeenCalledWith('to_search')
+      expect(service.search).toHaveBeenCalledWith('/api/search?q=foo_bar')
 
   describe 'search execution', ->
     it 'searches the query', ->
-      expect(service.search).toHaveBeenCalledWith('to_search')
+      expect(service.search).toHaveBeenCalledWith('/api/search?q=to_search')
 
     it 'start searching', ->
       scope.$apply()
@@ -69,7 +69,7 @@ describe 'Controller: SearchCtrl', ->
       deferred.resolve({results: results})
       scope.$apply()
 
-      expect(scope.results).toBe results
+      expect(scope.results).toEqual results
 
     it 'stops searching', ->
       expect(scope.searching).toBe true

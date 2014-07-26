@@ -1,9 +1,5 @@
 include ./partials/search
 
-.row.marketing(ng-hide='results')
-  .col-md-12
-    img#yeoman-error.center-block(src='images/yeoman-error.png', alt='I\'m Yeoman', ng-show='error')
-
 div(ng-show='noResults' style='margin-top: 30px; text-align: center;')
   .row.marketing
     .col-md-2.col-md-offset-5
@@ -12,7 +8,7 @@ div(ng-show='noResults' style='margin-top: 30px; text-align: center;')
     .col-md-2.col-md-offset-5
       span Sorry no result found
 
-.row.marketing(ng-show='results')
+.row.marketing
   .col-md-12
     ul(style='list-style-type: none; padding: 0; margin: 0;')
       li.result-repeat.animate(ng-repeat='result in results')
@@ -49,3 +45,9 @@ div(ng-show='noResults' style='margin-top: 30px; text-align: center;')
                     dd {{value}}
                 h5 body
                   div(hljs='hljs', source='result.responseBody()', ng-show='result.responseBody()')
+
+      li.pagination(ng-show='results.length > 0')
+        a(ng-click='loadMore()', ng-show='pagination.next_page') load more
+        i.fa.fa-refresh.fa-spin(ng-show='searching')
+        i.fa.fa-foursquare(ng-hide='pagination.next_page')
+

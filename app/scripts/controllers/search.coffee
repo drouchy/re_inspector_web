@@ -12,6 +12,7 @@ angular.module('reInspectorWebApp')
     $scope.query = $routeParams.q
     $scope.noResults = false
     $scope.results = []
+    $scope.pagination = {}
 
     $scope.search = ->
       $location.search("q", $scope.query)
@@ -20,19 +21,25 @@ angular.module('reInspectorWebApp')
 
     $scope.executeSearch = ->
       console.log "searching '#{$scope.query}'"
-      $scope.searching = true
       $scope.__discard_results()
+      $scope.__search("/api/search?q=#{$scope.query}")
 
-      searchService.search($scope.query).then(
+    $scope.loadMore = ->
+      console.log "loading page #{$scope.pagination.next_page}"
+      $scope.__search($scope.pagination.next_page)
+
+    $scope.__search = (path) ->
+      $scope.searching = true
+      searchService.search(path).then(
         (data)  ->
-          $scope.results = data.results
+          _.each(data.results, (v) -> $scope.results.push(v))
+          $scope.pagination = data.pagination
           $scope.noResults = data.results.length == 0
           $scope.searching = false
         (error) ->
           $scope.noResults = false
           $scope.searching = false
       )
-
     $scope.__discard_results = ->
       while($scope.results.length > 0)
         $scope.results.shift()
