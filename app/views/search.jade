@@ -29,6 +29,9 @@ div(ng-show='noResults' style='margin-top: 30px; text-align: center;')
                   dd {{result.duration()}}
                   dt service:
                   dd {{result.service()}}
+                  dt tags:
+                  dd
+                    span.label.label-primary(ng-repeat='tag in result.correlations()' style='margin-right: 5px;') {{tag}}
               tab(heading='request')
                 h5 headers
                 dl.information.large-information

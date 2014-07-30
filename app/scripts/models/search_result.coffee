@@ -30,6 +30,9 @@ class @SearchResult
     else
       "#{duration.asSeconds().toFixed(1)}s"
 
+  correlations: ->
+    @data.correlations
+
   requestHeaders: ->
     @data.request.headers
 

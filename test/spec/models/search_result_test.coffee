@@ -190,3 +190,11 @@ describe 'Model: SearchResult', ->
       subject = new SearchResult(data)
 
       expect(subject.responseHeaders()).toEqual headers
+
+  describe 'correlations', ->
+    it 'returns the correlations in the data', ->
+      data.correlations = ["1", "2"]
+
+      subject = new SearchResult(data)
+
+      expect(subject.correlations()).toEqual ["1", "2"]
