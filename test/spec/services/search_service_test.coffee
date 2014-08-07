@@ -66,3 +66,55 @@ describe 'Service: search', ->
 
       expect(failure).toEqual {error: '1'}
       expect(success).toBe null
+
+  describe 'find', ->
+
+    beforeEach ->
+      httpBackend.when('GET', '/api/api_request/abcde').respond(200, {api_request: [{foo: 'bar'}]})
+      httpBackend.when('GET', '/api/api_request/not_found').respond(404, {error: '1'})
+
+    it 'executes the http request', ->
+      httpBackend.expectGET('/api/api_request/abcde').respond({foo:'bar'})
+
+      service.find '/api/api_request/abcde'
+      httpBackend.flush()
+
+      httpBackend.verifyNoOutstandingExpectation()
+      httpBackend.verifyNoOutstandingRequest()
+
+    it 'resolves the promise when the query is executed', ->
+      success = null
+      failure = null
+
+      service.find('/api/api_request/abcde').then(
+        (data)  -> success = data
+        (error) -> failure = error
+      )
+      httpBackend.flush()
+
+      expect(success).not.toBe null
+      expect(failure).toBe null
+
+    it 'transforms the result to search result', ->
+      success = null
+      failure = null
+
+      service.find('/api/api_request/abcde').then(
+        (data)  -> success = data
+      )
+      httpBackend.flush()
+
+      expect(success.isCollapsed).toBe false
+
+    it 'rejects the promise when the query is executed', ->
+      success = null
+      failure = null
+
+      service.find('/api/api_request/not_found').then(
+        (data)  -> success = data
+        (error) -> failure = error
+      )
+      httpBackend.flush()
+
+      expect(failure).toEqual {error: '1'}
+      expect(success).toBe null

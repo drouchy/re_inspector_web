@@ -11,9 +11,22 @@ angular.module('reInspectorWebApp').factory 'searchService', ($http, $q) ->
 
       deferred.promise
 
+    find: (path) ->
+      console.log "find request #{path}"
+      deferred = $q.defer()
+
+      $http.get(path).
+        success((data, status, headers) => deferred.resolve(@transformOneEntry(data['api_request']))).
+        error((data, status, headers)   => deferred.reject(data))
+      
+      deferred.promise
+
     transformData: (data) ->
       {
-        results: _.map(data.results, (entry) -> new SearchResult(entry)),
+        results: _.map(data.results, (entry) => @transformOneEntry(entry)),
         pagination: data.pagination
       }
+
+    transformOneEntry: (entry) ->
+      new SearchResult(entry)
   }
