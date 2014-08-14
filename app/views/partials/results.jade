@@ -24,7 +24,7 @@ li.result-repeat.animate(ng-repeat='result in results')
           dl.information.large-information
             span(ng-repeat='(name, value) in result.requestHeaders()')
               dt {{name}}
-              dd {{value}}
+              dd {{value | limitTo: 100}}
           h5 body
           div(hljs='hljs', source='result.requestBody()', ng-show='result.requestBody()')
         tab(heading='response')
@@ -32,6 +32,6 @@ li.result-repeat.animate(ng-repeat='result in results')
           dl.information.large-information
             span(ng-repeat='(name, value) in result.responseHeaders()')
               dt {{name}}
-              dd {{value}}
+              dd {{value | limitTo: 100}}
           h5 body
             div(hljs='hljs', source='result.responseBody()', ng-show='result.responseBody()')
