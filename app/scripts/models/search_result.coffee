@@ -46,7 +46,7 @@ class @SearchResult
     @__executionDate__().fromNow()
 
   service: ->
-    "#{@data.service.name} - #{@data.service.version}"
+    "#{@data.service.name} - #{@data.service.version} - #{@data.service.env}"
 
   __executionDate__: ->
     moment @data.requested_at

@@ -18,7 +18,8 @@ describe 'Model: SearchResult', ->
       },
       service: {
         name: "service 1",
-        version: "12.4"
+        version: "12.4",
+        env: "production"
       }
     }
 
@@ -173,7 +174,7 @@ describe 'Model: SearchResult', ->
     it 'concatenates the service name & version', ->
       subject = new SearchResult(data)
 
-      expect(subject.service()).toEqual "service 1 - 12.4"
+      expect(subject.service()).toEqual "service 1 - 12.4 - production"
 
   describe 'requestHeaders', ->
     it 'returns the headers of the request', ->
