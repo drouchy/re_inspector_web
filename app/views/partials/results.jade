@@ -19,6 +19,7 @@ li.result-repeat.animate(ng-repeat='result in results')
             dt tags:
             dd
               span.label.label-primary(ng-repeat='tag in result.correlations() track by $index' style='margin-right: 5px;') {{tag}}
+
         tab(heading='request')
           h5 headers
           dl.information.large-information
@@ -27,6 +28,7 @@ li.result-repeat.animate(ng-repeat='result in results')
               dd {{value | limitTo: 100}}
           h5 body
           div(hljs='hljs', source='result.requestBody()', ng-show='result.requestBody()')
+
         tab(heading='response')
           h5 headers
           dl.information.large-information
@@ -35,3 +37,9 @@ li.result-repeat.animate(ng-repeat='result in results')
               dd {{value | limitTo: 100}}
           h5 body
             div(hljs='hljs', source='result.responseBody()', ng-show='result.responseBody()')
+
+        tab(heading='other')
+          dl.information.regular-information
+            span(ng-repeat='(name, value) in result.data.additional_information')
+              dt {{name}}
+              dd {{value | limitTo: 100}}
