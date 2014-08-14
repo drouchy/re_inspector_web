@@ -18,7 +18,7 @@ li.result-repeat.animate(ng-repeat='result in results')
             dd {{result.service()}}
             dt tags:
             dd
-              span.label.label-primary(ng-repeat='tag in result.correlations()' style='margin-right: 5px;') {{tag}}
+              span.label.label-primary(ng-repeat='tag in result.correlations() track by $index' style='margin-right: 5px;') {{tag}}
         tab(heading='request')
           h5 headers
           dl.information.large-information
