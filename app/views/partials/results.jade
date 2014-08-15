@@ -28,6 +28,7 @@ li.result-repeat.animate(ng-repeat='result in results')
               dd {{value | limitTo: 100}}
           h5 body
           div(hljs='hljs', source='result.requestBody()', ng-show='result.requestBody()')
+          div(ng-hide='result.requestBody()') the request does not have a body
 
         tab(heading='response')
           h5 headers
@@ -36,7 +37,8 @@ li.result-repeat.animate(ng-repeat='result in results')
               dt {{name}}
               dd {{value | limitTo: 100}}
           h5 body
-            div(hljs='hljs', source='result.responseBody()', ng-show='result.responseBody()')
+          div(hljs='hljs', source='result.responseBody()', ng-show='result.responseBody()')
+          div(ng-hide='result.responseBody()') the response does not have a body
 
         tab(heading='other')
           dl.information.regular-information
